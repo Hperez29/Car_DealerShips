@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>UserInterface.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #ed864a;}
+.s1 { color: #ebebeb;}
+.s2 { color: #ed864a; font-weight: bold;}
+.s3 { color: #54b33e;}
+.s4 { color: #33ccff; font-weight: bold;}
+.s5 { color: #7ec3e6;}
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+UserInterface.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.pluralsight</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Scanner</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">UserInterface {</span>
+    <span class="s0">private final </span><span class="s1">Scanner scanner</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">ContractDataManager contractDataManager</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">UserInterface() {</span>
+        <span class="s1">scanner = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s2">;</span>
+        <span class="s1">contractDataManager = </span><span class="s0">new </span><span class="s1">ContractDataManager()</span><span class="s2">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">start() {</span>
+        <span class="s0">boolean </span><span class="s1">running = </span><span class="s0">true</span><span class="s2">;</span>
+        <span class="s0">while </span><span class="s1">(running) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;1. Sell/Lease a Vehicle&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;2. Exit&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">System.out.print(</span><span class="s3">&quot;Select an option: &quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">option = Integer.parseInt(scanner.nextLine())</span><span class="s2">;</span>
+
+            <span class="s0">switch </span><span class="s1">(option) {</span>
+                <span class="s0">case </span><span class="s4">1</span><span class="s1">:</span>
+                    <span class="s1">handleSaleOrLease()</span><span class="s2">;</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">2</span><span class="s1">:</span>
+                    <span class="s1">running = </span><span class="s0">false</span><span class="s2">;</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">default</span><span class="s1">:</span>
+                    <span class="s1">System.out.println(</span><span class="s3">&quot;Invalid option. Try again.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">handleSaleOrLease() {</span>
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Enter Vehicle VIN: &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">String vin = scanner.nextLine()</span><span class="s2">;</span>
+
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Enter Customer Name: &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">String customerName = scanner.nextLine()</span><span class="s2">;</span>
+
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Enter Customer Email: &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">String customerEmail = scanner.nextLine()</span><span class="s2">;</span>
+
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Enter Date (YYYYMMDD): &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">String date = scanner.nextLine()</span><span class="s2">;</span>
+
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Enter Price: &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s0">double </span><span class="s1">price = Double.parseDouble(scanner.nextLine())</span><span class="s2">;</span>
+
+        <span class="s1">System.out.print(</span><span class="s3">&quot;Is this a Sale or Lease? (S/L): &quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">String contractType = scanner.nextLine()</span><span class="s2">;</span>
+
+        <span class="s0">if </span><span class="s1">(contractType.equalsIgnoreCase(</span><span class="s3">&quot;S&quot;</span><span class="s1">)) {</span>
+            <span class="s1">System.out.print(</span><span class="s3">&quot;Is this financed? (yes/no): &quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s0">boolean </span><span class="s1">isFinanced = scanner.nextLine().equalsIgnoreCase(</span><span class="s3">&quot;yes&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">SalesContract salesContract = </span><span class="s0">new </span><span class="s1">SalesContract(date</span><span class="s2">, </span><span class="s1">customerName</span><span class="s2">, </span><span class="s1">customerEmail</span><span class="s2">, </span><span class="s1">vin</span><span class="s2">, </span><span class="s1">price</span><span class="s2">, </span><span class="s1">isFinanced)</span><span class="s2">;</span>
+            <span class="s1">contractDataManager.saveContract(salesContract)</span><span class="s2">;</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;Sales contract saved.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(contractType.equalsIgnoreCase(</span><span class="s3">&quot;L&quot;</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">(isOlderThanThreeYears(vin)) {</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;Leasing not available for vehicles older than 3 years.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">LeaseContract leaseContract = </span><span class="s0">new </span><span class="s1">LeaseContract(date</span><span class="s2">, </span><span class="s1">customerName</span><span class="s2">, </span><span class="s1">customerEmail</span><span class="s2">, </span><span class="s1">vin</span><span class="s2">, </span><span class="s1">price)</span><span class="s2">;</span>
+                <span class="s1">contractDataManager.saveContract(leaseContract)</span><span class="s2">;</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;Lease contract saved.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+            <span class="s1">}</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;Invalid option.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private boolean </span><span class="s1">isOlderThanThreeYears(String vin) {</span>
+        <span class="s5">// Placeholder: Implement logic to check vehicle year based on VIN</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">display() {</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
